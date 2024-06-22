@@ -1,1 +1,1 @@
-自用规则
+Only for self use.
