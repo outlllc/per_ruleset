@@ -1,0 +1,12 @@
+payload:
+#----自定义规则 格式请参考教程------------
+  - 
+  -
+  -
+#----------------------------------------
+  - DOMAIN-SUFFIX,windowsupdate.com
+  - DOMAIN-SUFFIX,ghproxy.com
+  - DOMAIN-SUFFIX,dldir1.qq.com
+  
+  #win系统更新不走代理以免浪费流量
+  #rule-provider里面不能使用and not or等逻辑判断类规则
