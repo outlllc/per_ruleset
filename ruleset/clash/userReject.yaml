@@ -1,0 +1,24 @@
+payload:
+#----自定义规则 格式请参考教程------------
+  - 
+  -
+  -
+#----------------------------------------
+  # > bilibili直连封堵
+  - IP-CIDR,203.107.1.0/24,no-resolve
+    # > 防止回环
+  - IP-CIDR,127.0.0.1/32,no-resolve
+  - IP-CIDR,198.18.0.1/16,no-resolve
+  - IP-CIDR,28.0.0.1/8,no-resolve
+  - IP-CIDR6,::1/128,no-resolve
+  - DOMAIN,mcdn.bilivideo.cn
+  - DOMAIN,tracker.biliapi.net
+  - DOMAIN-SUFFIX,chat.bilibili.com
+  - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
+  - DOMAIN-REGEX,(.*)-p2p-(.*)\.chat\.bilibili\.com
+  - DOMAIN-REGEX,(.*)\.v(.*)d\.szbdyd\.com
+  - DOMAIN-REGEX,(.*)-live-tracker-(.*)\.chat\.bilibili\.com
+  - DOMAIN-SUFFIX,szbdyd.com
+  
+  #win系统更新不走代理以免浪费流量
+  #rule-provider里面不能使用and not or等逻辑判断类规则

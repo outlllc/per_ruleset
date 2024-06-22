@@ -1,0 +1,10 @@
+payload:
+#自定义规则 格式请参考教程--------------
+  - 
+  -
+  -
+#-------------------------------------
+  - DOMAIN-SUFFIX,googleapis.cn    #防止使用部分香港节点时play商店无法下载软件
+  - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com
+  - DOMAIN-SUFFIX,.dev
+  - DOMAIN-KEYWORD,nexon
