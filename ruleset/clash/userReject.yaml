@@ -11,14 +11,35 @@ payload:
   - IP-CIDR,198.18.0.1/16,no-resolve
   - IP-CIDR,28.0.0.1/8,no-resolve
   - IP-CIDR6,::1/128,no-resolve
-  - DOMAIN,mcdn.bilivideo.cn
-  - DOMAIN,tracker.biliapi.net
+  - DOMAIN,p6-dy-ipv6.byteimg.com
+  - DOMAIN-SUFFIX,mcdn.bilivideo.cn
+  - DOMAIN-SUFFIX,tracker.biliapi.net
   - DOMAIN-SUFFIX,chat.bilibili.com
   - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
   - DOMAIN-REGEX,(.*)-p2p-(.*)\.chat\.bilibili\.com
   - DOMAIN-REGEX,(.*)\.v(.*)d\.szbdyd\.com
   - DOMAIN-REGEX,(.*)-live-tracker-(.*)\.chat\.bilibili\.com
   - DOMAIN-SUFFIX,szbdyd.com
+  - DOMAIN-SUFFIX,metric.huya.com
+  - DOMAIN-SUFFIX,ylog.huya.com
+  - DOMAIN-SUFFIX,e-ad-monitor.huya.com
+  - DOMAIN-SUFFIX,p2p.huya.com
+  - DOMAIN-SUFFIX,statwup.huya.com
+  - DOMAIN-SUFFIX,e-stat.huya.com
+  - DOMAIN-SUFFIX,pp.io
+  - DOMAIN-SUFFIX,ppio.cloud
+  - DOMAIN-SUFFIX,statwup.huya.com
+  # > STUN
+  - AND,((NETWORK,UDP),(DST-PORT,3478))
+  #- AND,((NETWORK,UDP),(OR,((DST-PORT,3478),(GEOIP,PRIVATE))))
+  # quic拦截
+  - AND,((NETWORK,UDP),(DST-PORT,443))
+  - AND,((NETWORK,UDP),(DST-P0RT,4483))
+  - AND,((NETWORK,UDP),(DST-P0RT,9305))
+  #- AND,((NETWORK,UDP),(DST-PORT,443/4483/9305)),REJECT
+  #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn)))),QUIC 
+  #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn),REJECT
+  - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
   
   #win系统更新不走代理以免浪费流量
   #rule-provider里面不能使用and not or等逻辑判断类规则
