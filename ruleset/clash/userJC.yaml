@@ -1,13 +1,8 @@
 payload:
-#----自定义规则 格式请参考教程------------
-  - 
-  -
-  -
-#----------------------------------------
+  #自定义走机场规则
   - DOMAIN-SUFFIX,189.cn
-  - DOMAIN-SUFFIX,push.apple.com
   - DOMAIN-SUFFIX,ccb.com
   - DOMAIN-SUFFIX,10086.cn
   - DOMAIN-SUFFIX,139.com
+  - DOMAIN-SUFFIX,taobao.com
   - DOMAIN-KEYWORD,chinatelecom
-#rule-provider里面不能使用and not or等逻辑判断类规则

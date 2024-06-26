@@ -1,4 +1,5 @@
 payload:
+  #自定义Reject规则
   # > bilibili直连封堵
   - IP-CIDR,203.107.1.0/24,no-resolve
     # > 防止回环
@@ -6,6 +7,7 @@ payload:
   - IP-CIDR,198.18.0.1/16,no-resolve
   - IP-CIDR,28.0.0.1/8,no-resolve
   - IP-CIDR6,::1/128,no-resolve
+
   - DOMAIN,p6-dy-ipv6.byteimg.com
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
   - DOMAIN-SUFFIX,tracker.biliapi.net
@@ -31,8 +33,8 @@ payload:
   - AND,((NETWORK,UDP),(DST-PORT,443))
   - AND,((NETWORK,UDP),(DST-P0RT,4483))
   - AND,((NETWORK,UDP),(DST-P0RT,9305))
-  #- AND,((NETWORK,UDP),(DST-PORT,443/4483/9305)),REJECT
-  #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn)))),QUIC 
-  #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn),REJECT
+  #- AND,((NETWORK,UDP),(DST-PORT,443/4483/9305))
+  #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
+  #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
   - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
   

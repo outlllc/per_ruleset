@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "rules": [
+	{
+      "domain_keyword": [
+        "chinatelecom"
+      ],
+      "domain_suffix": [
+        "189.cn",
+	    "ccb.com",
+	    "10086.cn",
+	    "139.com",
+	    "taobao.com"
+      ]
+    }
+  ]
+}
