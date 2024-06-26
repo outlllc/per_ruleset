@@ -1,0 +1,38 @@
+addons: &addons
+  type: http
+  port: 443
+  headers:
+    # 百度直连第一种写法
+    X-T5-Auth: 683556433
+    Host: 153.3.236.22:443
+
+    # 百度直连第二种写法
+    # baiduDirect: true
+
+    # 钉钉直连写法
+    # withAt: gw.alicdn.com
+    # X-T5-Auth: 683556433
+    # Host: 153.3.236.22:443
+# 节点
+proxies:
+  - name: 广州中联
+    server: 220.181.111.189
+    <<: *addons
+  - name: 北京中联
+    server: 220.181.33.174
+    <<: *addons
+  - name: 南京电信
+    server: 180.101.50.249
+    <<: *addons
+  - name: 苏州联通
+    server: 157.0.148.53
+    <<: *addons
+  - name: 郑州电信1
+    server: 180.97.93.202
+    <<: *addons
+  - name: 郑州电信(南京微跳)
+    server: 180.101.50.208
+    <<: *addons
+  - name: 郑州中联
+    server: 220.181.7.1
+    <<: *addons
