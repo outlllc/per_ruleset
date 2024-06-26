@@ -41,5 +41,3 @@ payload:
   #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn),REJECT
   - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
   
-  #win系统更新不走代理以免浪费流量
-  #rule-provider里面不能使用and not or等逻辑判断类规则
