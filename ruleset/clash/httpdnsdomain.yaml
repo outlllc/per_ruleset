@@ -1,0 +1,127 @@
+#!name = 拦截HTTPDNS
+#!desc = 拦截常见的HTTPDNS服务，以确保这些请求都能够在Loon的DNS框架下工作。
+#!openUrl = 
+#!author = 可莉🅥 VirgilClyne
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/HTTPDNS.png
+#!date = 2024-07-13 01:40:46
+payload:
+
+  # YY语音
+  - DOMAIN,yyapp-httpdns.gslb.yy.com
+  - DOMAIN,union-httpdns.gslb.yy.com
+  - DOMAIN,httpdns-v6.gslb.yy.com
+  
+  # 抖音
+  - AND,((DOMAIN-KEYWORD,api100-core-quic-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,api100-normal-quic-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,api100-normal-quic-aweme-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,api100-quic-core-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,api100-quic-normal-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,frontier-aweme-),(AND,((OR,((DOMAIN-KEYWORD,-ipa.),(DOMAIN-KEYWORD,-ipainner.),(DOMAIN-KEYWORD,-origin.),(DOMAIN-KEYWORD,-ipainner-))),(OR,((DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,amemv.com))))))
+  - AND,((DOMAIN-KEYWORD,frontier100-aweme),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((DOMAIN-KEYWORD,ma5-normal-),(DOMAIN-SUFFIX,zijieapi.com))
+  - AND,((DOMAIN-KEYWORD,polaris5-normal-),(DOMAIN-SUFFIX,zijieapi.com))
+  - AND,((DOMAIN-KEYWORD,webcast100-ws-c-),(DOMAIN-SUFFIX,amemv.com))
+  - AND,((OR,((DOMAIN-KEYWORD,tnc3-bjlgy),(DOMAIN-KEYWORD,tnc11-bjlgy))),(OR,((DOMAIN-SUFFIX,bytedance),(DOMAIN-SUFFIX,zijieapi.com))))
+  - DOMAIN,frontier-aweme-hl.snssdk.com
+  - DOMAIN,frontier-aweme.snssdk.com
+  - DOMAIN,frontier-quic-test.bytedance.com
+  - AND,((IP-CIDR,110.249.199.75/32,no-resolve),(DEST-PORT,6443))
+  - AND,((IP-CIDR,111.225.147.191/32,no-resolve),(DEST-PORT,6443))
+  - AND,((IP-CIDR,111.63.61.101/32,no-resolve),(DEST-PORT,6443))
+  - AND,((IP-CIDR,220.243.141.0/32,no-resolve),(DEST-PORT,6443))
+  
+  # 微信
+  - DOMAIN,dns.weixin.qq.com
+  - DOMAIN,dns.weixin.qq.com.cn
+  - DOMAIN,aedns.weixin.qq.com
+  
+  # QQ音乐
+  - DOMAIN,httpdns.kg.qq.com
+  - DOMAIN-REGEX,^http:\/\/182\.256\.116\.116\/d
+  
+  # 哔哩哔哩
+  - DOMAIN,httpdns.bilivideo.com
+  # KEY_EXT_P2P_HTTPDNS_BILI_IP
+  - DOMAIN-REGEX,^http:\/\/47\.101\.175\.206\/resolve
+  - DOMAIN-REGEX,^http:\/\/47\.100\.123\.169\/resolve
+  - DOMAIN-REGEX,^http:\/\/120\.46\.169\.234\/resolve
+  - DOMAIN-REGEX,^http:\/\/121\.36\.72\.124\/resolve
+  # KEY_EXT_P2P_BILIDNS_CMCC_IP
+  - DOMAIN-REGEX,^http:\/\/116\.63\.10\.135\/resolve
+  - DOMAIN-REGEX,^http:\/\/117\.185\.228\.108\/resolve
+  - DOMAIN-REGEX,^http:\/\/117\.144\.238\.29\/resolve
+  - DOMAIN-REGEX,^http:\/\/122\.9\.7\.134\/resolve
+  # KEY_EXT_P2P_BILIDNS_CT_IP
+  - DOMAIN-REGEX,^http:\/\/101\.91\.140\.124\/resolve
+  - DOMAIN-REGEX,^http:\/\/101\.91\.140\.224\/resolve
+  - DOMAIN-REGEX,^http:\/\/122\.9\.13\.79\/resolve
+  - DOMAIN-REGEX,^http:\/\/122\.9\.15\.129\/resolve
+  # KEY_EXT_P2P_BILIDNS_CU_IP
+  - DOMAIN-REGEX,^http:\/\/112\.65\.200\.117\/resolve
+  - DOMAIN-REGEX,^http:\/\/112\.64\.218\.119\/resolve
+  - DOMAIN-REGEX,^http:\/\/114\.116\.215\.110\/resolve
+  - DOMAIN-REGEX,^http:\/\/116\.63\.10\.31\/resolve
+  
+  # 阿里巴巴
+  - DOMAIN,httpdns.alicdn.com
+  
+  # 阿里云
+  - DOMAIN,httpdns-api.aliyuncs.com
+  - DOMAIN,httpdns-sc.aliyuncs.com
+  
+  # 百度
+  - DOMAIN,httpdns.baidu.com
+  - DOMAIN,httpsdns.baidu.com
+  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/
+  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/resolve
+  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.220\/v\d\/resolve
+  
+  # 百度智能云
+  - DOMAIN,httpdns.baidubce.com
+  
+  # 华为
+  - DOMAIN,httpdns.c.cdnhwc2.com
+  
+  # 京东
+  - DOMAIN,dns.jd.com
+
+  # 腾讯云
+  - DOMAIN-REGEX,^http:\/\/182\.254\.116\.116\/d
+  
+  # 字节跳动
+  - DOMAIN,httpdns.volcengineapi.com
+  - DOMAIN,dig.bdurl.net
+  - DOMAIN,dig.zjurl.cn
+  
+  # OPPO
+  - DOMAIN,httpdns.push.oppomobile.com
+  
+  # 快手
+  - DOMAIN,kuaishou.httpdns.pro
+  
+  # 美团
+  - DOMAIN,httpdns.meituan.com
+  - DOMAIN-REGEX,^http:\/\/103\.37\.155\.60\/fetch
+  
+  # 拼多多
+  - DOMAIN-REGEX,^http:\/\/101\.35\.204\.35\/d
+  - DOMAIN-REGEX,^http:\/\/101\.35\.212\.35\/d
+  - DOMAIN-REGEX,^http:\/\/114\.110\.96\.26\/d
+  - DOMAIN-REGEX,^http:\/\/114\.110\.97\.97\/d
+  
+  # 网易
+  - DOMAIN,httpdns.music.163.com
+  - DOMAIN,httpdns.n.netease.com
+  - DOMAIN,httpdns.yunxindns.com
+  - DOMAIN,lofter.httpdns.c.163.com
+  - DOMAIN,music.httpdns.c.163.com
+  
+  # 微博
+  - DOMAIN,dns.weibo.cn
+  - DOMAIN-REGEX,^http:\/\/api\.weibo\.cn\/2\/httpdns\/config
+  - DOMAIN-REGEX,^http:\/\/api\.weibo\.cn\/httpdns\/config
+  
+  # 知乎
+  - DOMAIN-REGEX,^http:\/\/103\.41\.167\.237\/v2\/resolv

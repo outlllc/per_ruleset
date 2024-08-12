@@ -1,12 +1,12 @@
 payload:
   #自定义Reject规则
   # > bilibili直连封堵
-  - IP-CIDR,203.107.1.0/24,no-resolve
+#  - IP-CIDR,203.107.1.0/24,no-resolve
     # > 防止回环
-  - IP-CIDR,127.0.0.1/32,no-resolve
-  - IP-CIDR,198.18.0.1/16,no-resolve
-  - IP-CIDR,28.0.0.1/8,no-resolve
-  - IP-CIDR6,::1/128,no-resolve
+#  - IP-CIDR,127.0.0.1/32,no-resolve
+#  - IP-CIDR,198.18.0.1/16,no-resolve
+#  - IP-CIDR,28.0.0.1/8,no-resolve
+#  - IP-CIDR6,::1/128,no-resolve
 
   - DOMAIN,p6-dy-ipv6.byteimg.com
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
