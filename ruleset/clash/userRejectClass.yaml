@@ -1,0 +1,81 @@
+payload:
+  #自定义Reject规则
+  # > bilibili直连封堵
+  - IP-CIDR,203.107.1.0/24,no-resolve
+    # > 防止回环
+  - IP-CIDR,127.0.0.1/32,no-resolve
+  - IP-CIDR,198.18.0.1/16,no-resolve
+  - IP-CIDR,28.0.0.1/8,no-resolve
+  - IP-CIDR6,::1/128,no-resolve
+
+  - DOMAIN-SUFFIX,p6-dy-ipv6.byteimg.com
+  - DOMAIN-SUFFIX,mcdn.bilivideo.cn
+  - DOMAIN-SUFFIX,mcdn.bilivideo.com
+  - DOMAIN-SUFFIX,tracker.biliapi.net
+  - DOMAIN-SUFFIX,chat.bilibili.com
+  - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
+  - DOMAIN-REGEX,(.*)-p2p-(.*)\.chat\.bilibili\.com
+  - DOMAIN-REGEX,(.*)\.v(.*)d\.szbdyd\.com
+  - DOMAIN-REGEX,(.*)-live-tracker-(.*)\.chat\.bilibili\.com
+  - DOMAIN-SUFFIX,szbdyd.com
+  - DOMAIN-SUFFIX,metric.huya.com
+  - DOMAIN-SUFFIX,ylog.huya.com
+  - DOMAIN-SUFFIX,e-ad-monitor.huya.com
+  - DOMAIN-SUFFIX,p2p.huya.com
+  - DOMAIN-SUFFIX,statwup.huya.com
+  - DOMAIN-SUFFIX,e-stat.huya.com
+  - DOMAIN-SUFFIX,pp.io
+  - DOMAIN-SUFFIX,ppio.cloud
+  - DOMAIN-SUFFIX,statwup.huya.com
+  # > STUN
+  - AND,((NETWORK,UDP),(DST-PORT,3478))
+  #- AND,((NETWORK,UDP),(OR,((DST-PORT,3478),(GEOIP,PRIVATE))))
+  # quic拦截
+  - AND,((NETWORK,UDP),(DST-PORT,443))
+  - AND,((NETWORK,UDP),(DST-P0RT,4483))
+  - AND,((NETWORK,UDP),(DST-P0RT,9305))
+  #- AND,((NETWORK,UDP),(DST-PORT,443/4483/9305))
+  #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
+  #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
+  - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
+
+  # From SophiEZzz and anti-AD
+  - DOMAIN-SUFFIX,gjfzpt.cn
+  - DOMAIN-SUFFIX,bsccdn.net
+  - DOMAIN-SUFFIX,pkoplink.com
+  - DOMAIN-SUFFIX,saxysec.com
+  - DOMAIN-SUFFIX,uhabo.com
+  - DOMAIN-SUFFIX,xycdn.com
+  - DOMAIN-SUFFIX,kuiniuca.com
+  - DOMAIN-SUFFIX,onethingpcs.com
+  - DOMAIN-SUFFIX,jomodns.cn
+  - DOMAIN-SUFFIX,p2p.huya.com
+  - DOMAIN-SUFFIX,stun.douyucdn.cn
+  - DOMAIN-SUFFIX,stun.hitv.com
+  - DOMAIN-SUFFIX,stun1.douyucdn.cn
+  - DOMAIN-SUFFIX,tpa-hcdn.iqiyi.com
+  - DOMAIN-SUFFIX,pcdn.xmcdn.com
+  - DOMAIN-SUFFIX,pcdn.yximgs.com
+  - DOMAIN-SUFFIX,dyp2p-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,dyp2p-hw.douyucdn.cn
+  - DOMAIN-SUFFIX,p2p-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,p2p.qq.com
+  - DOMAIN-SUFFIX,p2pchunk-hw.douyucdn.cn
+  - DOMAIN-SUFFIX,p2pchunk-table.douyucdn.cn
+  - DOMAIN-SUFFIX,p2pchunk-ws.douyucdn.cn
+  - DOMAIN-SUFFIX,p2perrorlog.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plive-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plive-ws.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plog.douyucdn.cn
+  - DOMAIN-SUFFIX,p2ptun.qq.com
+  - DOMAIN-SUFFIX,p2pupdate.gamedl.qq.com
+  - DOMAIN-SUFFIX,p2pupgrade.gamedl.qq.com
+  - DOMAIN-SUFFIX,p2pvod-ws.douyucdn.cn
+  - DOMAIN-REGEX,.*pcdn.*biliapi\.net
+  - DOMAIN-REGEX,.*pcdn.*youku\.com
+  - DOMAIN-REGEX,.*p2p.*douyucdn\.cn
+  - DOMAIN-REGEX,.*p2p.*qq\.com
+  - DOMAIN-REGEX,.*pcdn.*biliapi.net
+  - DOMAIN-REGEX,.*pcdn.*youku.com
+
+  

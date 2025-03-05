@@ -1,0 +1,9 @@
+payload:
+  #自定义走机场规则
+  - DOMAIN-SUFFIX,189.cn
+  - DOMAIN-SUFFIX,ccb.com
+  - DOMAIN-SUFFIX,10086.cn
+  - DOMAIN-SUFFIX,139.com
+  - DOMAIN-SUFFIX,taobao.com
+  - DOMAIN-SUFFIX,zntx.cc
+  - DOMAIN-KEYWORD,chinatelecom
