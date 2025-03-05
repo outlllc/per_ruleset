@@ -10,6 +10,7 @@ payload:
 
   - DOMAIN,p6-dy-ipv6.byteimg.com
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
+  - DOMAIN-SUFFIX,mcdn.bilivideo.com
   - DOMAIN-SUFFIX,tracker.biliapi.net
   - DOMAIN-SUFFIX,chat.bilibili.com
   - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
@@ -37,4 +38,44 @@ payload:
   #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
   #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
   - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
+
+  # From SophiEZzz and anti-AD
+  - DOMAIN-SUFFIX,gjfzpt.cn
+  - DOMAIN-SUFFIX,bsccdn.net
+  - DOMAIN-SUFFIX,pkoplink.com
+  - DOMAIN-SUFFIX,saxysec.com
+  - DOMAIN-SUFFIX,uhabo.com
+  - DOMAIN-SUFFIX,xycdn.com
+  - DOMAIN-SUFFIX,kuiniuca.com
+  - DOMAIN-SUFFIX,onethingpcs.com
+  - DOMAIN-SUFFIX,jomodns.cn
+  - DOMAIN-SUFFIX,p2p.huya.com
+  - DOMAIN-SUFFIX,stun.douyucdn.cn
+  - DOMAIN-SUFFIX,stun.hitv.com
+  - DOMAIN-SUFFIX,stun1.douyucdn.cn
+  - DOMAIN-SUFFIX,tpa-hcdn.iqiyi.com
+  - DOMAIN-SUFFIX,pcdn.xmcdn.com
+  - DOMAIN-SUFFIX,pcdn.yximgs.com
+  - DOMAIN-SUFFIX,dyp2p-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,dyp2p-hw.douyucdn.cn
+  - DOMAIN-SUFFIX,p2p-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,p2p.qq.com
+  - DOMAIN-SUFFIX,p2pchunk-hw.douyucdn.cn
+  - DOMAIN-SUFFIX,p2pchunk-table.douyucdn.cn
+  - DOMAIN-SUFFIX,p2pchunk-ws.douyucdn.cn
+  - DOMAIN-SUFFIX,p2perrorlog.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plive-ali.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plive-ws.douyucdn.cn
+  - DOMAIN-SUFFIX,p2plog.douyucdn.cn
+  - DOMAIN-SUFFIX,p2ptun.qq.com
+  - DOMAIN-SUFFIX,p2pupdate.gamedl.qq.com
+  - DOMAIN-SUFFIX,p2pupgrade.gamedl.qq.com
+  - DOMAIN-SUFFIX,p2pvod-ws.douyucdn.cn
+  - DOMAIN-SUFFIX,.*pcdn.*biliapi\.net
+  - DOMAIN-SUFFIX,.*pcdn.*youku\.com
+  - DOMAIN-SUFFIX,.*p2p.*douyucdn\.cn
+  - DOMAIN-SUFFIX,.*p2p.*qq\.com
+  - DOMAIN-SUFFIX,.*pcdn.*biliapi.net
+  - DOMAIN-SUFFIX,.*pcdn.*youku.com
+
   
