@@ -1,5 +1,5 @@
 payload:
   #自定义直连或国内规则
-  - DOMAIN-SUFFIX,windowsupdate.com
-  - DOMAIN-SUFFIX,ghproxy.com
-  - DOMAIN-SUFFIX,dldir1.qq.com
+  - windowsupdate.com
+  - ghproxy.com
+  - dldir1.qq.com

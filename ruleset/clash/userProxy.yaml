@@ -1,6 +1,6 @@
 payload:
   #自定义代理规则
-  - DOMAIN-SUFFIX,googleapis.cn
-  - DOMAIN-SUFFIX,.xn--ngstr-lra8j.com
-  - DOMAIN-SUFFIX,.dev
-  - DOMAIN-KEYWORD,nexon
+  - googleapis.cn
+  - .xn--ngstr-lra8j.com
+  - .dev
+  - nexon
