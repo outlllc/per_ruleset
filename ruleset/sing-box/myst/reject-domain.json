@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "domain": [
+        "pp.io"
+      ],
+      "domain_suffix": [
+        "p6-dy-ipv6.byteimg.com",
+        "mcdn.bilivideo.cn",
+        "mcdn.bilivideo.com",
+        "tracker.biliapi.net",
+        "chat.bilibili.com",
+        "szbdyd.com",
+        "metric.huya.com",
+        "ylog.huya.com",
+        "e-ad-monitor.huya.com",
+        "p2p.huya.com",
+        "statwup.huya.com",
+        "e-stat.huya.com",
+        "pp.io",
+        "ppio.cloud",
+        "statwup.huya.com",
+        "gjfzpt.cn",
+        "bsccdn.net",
+        "pkoplink.com",
+        "saxysec.com",
+        "uhabo.com",
+        "xycdn.com",
+        "kuiniuca.com",
+        "onethingpcs.com",
+        "jomodns.cn",
+        "p2p.huya.com",
+        "stun.douyucdn.cn",
+        "stun.hitv.com",
+        "stun1.douyucdn.cn",
+        "tpa-hcdn.iqiyi.com",
+        "pcdn.xmcdn.com",
+        "pcdn.yximgs.com",
+        "dyp2p-ali.douyucdn.cn",
+        "dyp2p-hw.douyucdn.cn",
+        "p2p-ali.douyucdn.cn",
+        "p2p.qq.com",
+        "p2pchunk-hw.douyucdn.cn",
+        "p2pchunk-table.douyucdn.cn",
+        "p2pchunk-ws.douyucdn.cn",
+        "p2perrorlog.douyucdn.cn",
+        "p2plive-ali.douyucdn.cn",
+        "p2plive-ws.douyucdn.cn",
+        "p2plog.douyucdn.cn",
+        "p2ptun.qq.com",
+        "p2pupdate.gamedl.qq.com",
+        "p2pupgrade.gamedl.qq.com",
+        "p2pvod-ws.douyucdn.cn"
+      ]
+    }
+  ]
+}
