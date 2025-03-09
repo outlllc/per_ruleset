@@ -1,0 +1,10 @@
+payload:
+  #抖音快手小红书修改定位
+  #抖音修改ip
+  - DOMAIN-SUFFIX,amemv.com
+  - DOMAIN-SUFFIX,douyinvod.com
+  # 快手修改IP
+  - DOMAIN-SUFFIX,gifshow.com
+  - DOMAIN-SUFFIX,apissl.ksapisrv.com
+  # 小红书修改IP
+  - DOMAIN-SUFFIX,edith.xiaohongshu.com
