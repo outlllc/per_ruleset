@@ -15,24 +15,24 @@ addons: &addons
     # Host: 153.3.236.22:443
 # 节点
 proxies:
-  - name: 广州中联
+  - name: 广州中联(百)
     server: 220.181.111.189
     <<: *addons
-  - name: 北京中联
+  - name: 北京中联(百)
     server: 220.181.33.174
     <<: *addons
-  - name: 南京电信
+  - name: 南京电信(百)
     server: 180.101.50.249
     <<: *addons
-  - name: 苏州联通
+  - name: 昆山联通(百)
     server: 157.0.148.53
     <<: *addons
-  - name: 郑州电信1
+  - name: 郑州电信(百)
     server: 180.97.93.202
     <<: *addons
-  - name: 郑州电信(南京微跳)
+  - name: 郑州电信(南京微跳)(百)
     server: 180.101.50.208
     <<: *addons
-  - name: 郑州中联
+  - name: 郑州中联(百)
     server: 220.181.7.1
     <<: *addons
