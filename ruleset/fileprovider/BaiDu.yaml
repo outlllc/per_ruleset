@@ -30,9 +30,26 @@ proxies:
   - name: 郑州电信(百)
     server: 180.97.93.202
     <<: *addons
-  - name: 郑州电信(南京微跳)(百)
+  - name: 南京电信2(百)
     server: 180.101.50.208
     <<: *addons
-  - name: 郑州中联(百)
+  - name: 北京电信(百)
     server: 220.181.7.1
     <<: *addons
+  - name: 广东电信待测(百)
+    server: 14.215.182.75
+    <<: *addons
+
+#baidu: &baidu {type: http,port: 443,skip-cert-verify: true,headers: {Host: gw.alicdn.com,X-T5-Auth: 234276684,Connection: Keep-Alive,User-Agent: baiduboxapp}}
+
+#  - {name: 江苏①|Baidu,server: 153.3.237.117,<<: *baidu}
+
+#  - {name: 江苏②|Baidu,server: 157.0.146.158,<<: *baidu}
+
+#  - {name: 河北①|Baidu,server: 110.242.70.68,<<: *baidu}
+
+#  - {name: 河北②|Baidu,server: 110.242.70.69,<<: *baidu}
+
+#  - {name: Baidu①|Auto,server: cloudnproxy.baidu.com,<<: *baidu}
+
+#  - {name: Baidu②|Auto,server: cloudnproxy.n.shifen.com,<<: *baidu}
