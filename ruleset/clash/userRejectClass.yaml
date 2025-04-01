@@ -78,4 +78,7 @@ payload:
   - DOMAIN-REGEX,.*pcdn.*biliapi.net
   - DOMAIN-REGEX,.*pcdn.*youku.com
 
+
+#让人恶心的网站
+  - DOMAIN-SUFFIX,sysin.org
   
