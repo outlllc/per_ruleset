@@ -1,6 +1,6 @@
 payload:
   #自定义代理规则
-  - googleapis.cn
-  - .xn--ngstr-lra8j.com
-  - .dev
-  - nexon
+  - '+.googleapis.cn'
+  - '+.xn--ngstr-lra8j.com'
+  - '+.dev'
+  - '+.nexon'
