@@ -25,7 +25,7 @@ jobs:
             else
               echo 已存在srs目录
             fi
-            for file in json/*.json; do
+            for file in sing-boxjson/*.json; do
               filename=$(basename "$file" .json)
               sing-box rule-set compile "$file" -o "ruleset/sing-box/srs/$filename.srs"
             done

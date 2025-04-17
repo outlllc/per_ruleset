@@ -1,0 +1,5 @@
+payload:
+  #自定义直连或国内规则
+  - '+.windowsupdate.com'
+  - '+.ghproxy.com'
+  - '+.dldir1.qq.com'
