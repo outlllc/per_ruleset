@@ -1,0 +1,45 @@
+name: convert_json_to_srs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+    generatesrs:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v4
+        - name: setup singbox
+          env:
+            SINGBOX_DEB_URL: "https://github.com/SagerNet/sing-box/releases/download/v1.12.0-beta.3/sing-box_1.12.0-beta.3_linux_amd64.deb"
+          run: |
+            wget -O sing-box.deb $SINGBOX_DEB_URL
+            sudo dpkg -i sing-box.deb
+
+        - name: generate singbox srs
+          run: |
+            if [ ! -d "srs" ]; then
+              mkdir srs
+            else
+              echo 已存在srs目录
+            fi
+            for file in json/*.json; do
+              filename=$(basename "$file" .json)
+              sing-box rule-set compile "$file" -o "ruleset/sing-box/srs/$filename.srs"
+            done
+
+        - name: Commit and push *.srs
+          run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
+            git add ruleset/sing-box/srs
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+              exit 0
+            else
+              git commit -m "Generate srs files"
+              echo "commit message: Generate srs files"
+              git push
+            fi
