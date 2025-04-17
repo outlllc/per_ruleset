@@ -1,0 +1,10 @@
+payload:
+  #自定义走机场规则
+  - '+.189.cn'
+  - '+.ccb.com'
+  - '+.10086.cn'
+  - '+.139.com'
+  - '+.taobao.com'
+  - '+.chinatelecom.com.cn'
+  - '+.chinatelecom.com'
+  - '+.zntx.cc'
