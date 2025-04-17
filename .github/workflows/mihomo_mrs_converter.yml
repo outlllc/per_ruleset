@@ -1,0 +1,57 @@
+name: mihomo_convert_to_mrs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+    generatesrs:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v4
+        - name: setup mihomo
+          env:
+            MIHOMO_DEB_URL: "https://github.com/MetaCubeX/mihomo/releases/download/v1.19.4/mihomo-linux-amd64-v1.19.4.deb"
+          run: |
+            wget -O mihomo.deb $MIHOMO_DEB_URL
+            sudo dpkg -i mihomo.deb
+
+        - name: convet yaml domain to mihomo mrs
+          run: |
+            if [ ! -d "ruleset/clash/mrs" ]; then
+              mkdir -p ruleset/clash/mrs
+            fi
+            for file in mihomo/domain/*.yaml; do
+              filename=$(basename "$file" .yaml)
+              output="ruleset/clash/mrs/$filename.mrs"
+              echo "转换文件: $file"
+              mihomo convert-ruleset domain yaml "$file" "$output"
+            done
+
+        - name: convet yaml ipcidir to mihomo mrs
+          run: |
+            if [ ! -d "ruleset/clash/mrs" ]; then
+              mkdir -p ruleset/clash/mrs
+            fi
+            for file in mihomo/ipcidr/*.yaml; do
+              filename=$(basename "$file" .yaml)
+              output="ruleset/clash/mrs/$filename.mrs"
+              echo "转换文件: $file"
+              mihomo convert-ruleset ipcidr yaml "$file" "$output"
+            done
+
+        - name: Commit and push *.mrs
+          run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "GitHub Action"
+            git add ruleset/clash/mrs
+            if git diff --staged --quiet; then
+              echo "No changes to commit"
+              exit 0
+            else
+              git commit -m "Generate mrs files"
+              echo "commit message: Generate mrs files"
+              git push
+            fi
