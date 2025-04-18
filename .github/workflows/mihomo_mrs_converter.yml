@@ -18,15 +18,39 @@ jobs:
             wget -O mihomo.deb $MIHOMO_DEB_URL
             sudo dpkg -i mihomo.deb
 
+        - name: convet text domain to mihomo mrs
+          run: |
+            if [ ! -d "ruleset/clash/mrs" ]; then
+              mkdir -p ruleset/clash/mrs
+            fi
+            for file in mihomo/text/domain/*.txt; do
+              filename=$(basename "$file" .txt)
+              output="ruleset/clash/mrs/$filename.mrs"
+              echo "转换txt domain文件: $file"
+              mihomo convert-ruleset domain text "$file" "$output"
+            done
+
+        - name: convet text ipcidir to mihomo mrs
+          run: |
+            if [ ! -d "ruleset/clash/mrs" ]; then
+              mkdir -p ruleset/clash/mrs
+            fi
+            for file in mihomo/text/ipcidir/*.txt; do
+              filename=$(basename "$file" .txt)
+              output="ruleset/clash/mrs/$filename.mrs"
+              echo "转换txt ipcidir: $file"
+              mihomo convert-ruleset ipcidir text "$file" "$output"
+            done
+
         - name: convet yaml domain to mihomo mrs
           run: |
             if [ ! -d "ruleset/clash/mrs" ]; then
               mkdir -p ruleset/clash/mrs
             fi
-            for file in mihomo/domain/*.yaml; do
+            for file in mihomo/yaml/domain/*.yaml; do
               filename=$(basename "$file" .yaml)
               output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换文件: $file"
+              echo "转换文件yaml domain: $file"
               mihomo convert-ruleset domain yaml "$file" "$output"
             done
 
@@ -35,10 +59,10 @@ jobs:
             if [ ! -d "ruleset/clash/mrs" ]; then
               mkdir -p ruleset/clash/mrs
             fi
-            for file in mihomo/ipcidr/*.yaml; do
+            for file in mihomo/yaml/ipcidr/*.yaml; do
               filename=$(basename "$file" .yaml)
               output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换文件: $file"
+              echo "转换文件yaml ipcidir: $file"
               mihomo convert-ruleset ipcidr yaml "$file" "$output"
             done
 
