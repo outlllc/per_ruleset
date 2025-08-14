@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "rules": [
 	{
       "domain_keyword": [
@@ -10,7 +10,8 @@
 	    "ccb.com",
 	    "10086.cn",
 	    "139.com",
-	    "taobao.com"
+	    "taobao.com",
+	    "122.gov.cn"
       ]
     }
   ]
