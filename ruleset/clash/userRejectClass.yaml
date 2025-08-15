@@ -1,12 +1,12 @@
 payload:
-  #自定义Reject规则
+  # 自定义Reject规则
   # > bilibili直连封堵
-#  - IP-CIDR,203.107.1.0/24,no-resolve
-    # > 防止回环
-#  - IP-CIDR,127.0.0.1/32,no-resolve
-#  - IP-CIDR,198.18.0.1/16,no-resolve
-#  - IP-CIDR,28.0.0.1/8,no-resolve
-#  - IP-CIDR6,::1/128,no-resolve
+  # - IP-CIDR,203.107.1.0/24,no-resolve
+  # > 防止回环
+  # - IP-CIDR,127.0.0.1/32,no-resolve
+  # - IP-CIDR,198.18.0.1/16,no-resolve
+  # - IP-CIDR,28.0.0.1/8,no-resolve
+  # - IP-CIDR6,::1/128,no-resolve
 
   - DOMAIN-SUFFIX,p6-dy-ipv6.byteimg.com
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
@@ -26,17 +26,16 @@ payload:
   - DOMAIN-SUFFIX,e-stat.huya.com
   - DOMAIN-SUFFIX,pp.io
   - DOMAIN-SUFFIX,ppio.cloud
-  - DOMAIN-SUFFIX,statwup.huya.com
   # > STUN
   - AND,((NETWORK,UDP),(DST-PORT,3478))
-  #- AND,((NETWORK,UDP),(OR,((DST-PORT,3478),(GEOIP,PRIVATE))))
+  # - AND,((NETWORK,UDP),(OR,((DST-PORT,3478),(GEOIP,PRIVATE))))
   # quic拦截
   - AND,((NETWORK,UDP),(DST-PORT,443))
-  - AND,((NETWORK,UDP),(DST-P0RT,4483))
-  - AND,((NETWORK,UDP),(DST-P0RT,9305))
-  #- AND,((NETWORK,UDP),(DST-PORT,443/4483/9305))
-  #- OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
-  #- AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
+  - AND,((NETWORK,UDP),(DST-PORT,4483))
+  - AND,((NETWORK,UDP),(DST-PORT,9305))
+  # - AND,((NETWORK,UDP),(DST-PORT,443/4483/9305))
+  # - OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
+  # - AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
   - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
 
   # From SophiEZzz and anti-AD
@@ -49,7 +48,6 @@ payload:
   - DOMAIN-SUFFIX,kuiniuca.com
   - DOMAIN-SUFFIX,onethingpcs.com
   - DOMAIN-SUFFIX,jomodns.cn
-  - DOMAIN-SUFFIX,p2p.huya.com
   - DOMAIN-SUFFIX,stun.douyucdn.cn
   - DOMAIN-SUFFIX,stun.hitv.com
   - DOMAIN-SUFFIX,stun1.douyucdn.cn
@@ -75,10 +73,6 @@ payload:
   - DOMAIN-REGEX,.*pcdn.*youku\.com
   - DOMAIN-REGEX,.*p2p.*douyucdn\.cn
   - DOMAIN-REGEX,.*p2p.*qq\.com
-  - DOMAIN-REGEX,.*pcdn.*biliapi.net
-  - DOMAIN-REGEX,.*pcdn.*youku.com
 
-
-#让人恶心的网站
+  # 让人恶心的网站
   - DOMAIN-SUFFIX,sysin.org
-  
