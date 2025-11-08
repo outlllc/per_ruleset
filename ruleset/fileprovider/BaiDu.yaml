@@ -27,12 +27,6 @@ proxies:
   - name: 南京电信2(百) #ip苏州 10m
     server: 180.101.50.208
     <<: *addons
-  - name: 昆山联通(百)失效
-    server: 157.0.148.53
-    <<: *addons
-  - name: 郑州电信(百)失效
-    server: 180.97.93.202
-    <<: *addons
   - name: 北京电信(百) #ip南京 网速10M左右
     server: 220.181.7.1
     <<: *addons
