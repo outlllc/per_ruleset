@@ -76,3 +76,10 @@ payload:
 
   # 让人恶心的网站
   - DOMAIN-SUFFIX,sysin.org
+
+  # 反诈中心
+  - DOMAIN-SUFFIX,gjfzpt.cn
+  - DOMAIN-SUFFIX,fzapp-test-tyy.gjfzpt.cn
+  - DOMAIN-SUFFIX,oss.gjfzpt.cn
+  - DOMAIN-SUFFIX,fzapp.gjfzpt.cn
+  - DOMAIN-SUFFIX,fzapph5.gjfzpt.cn
