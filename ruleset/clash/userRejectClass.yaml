@@ -12,7 +12,7 @@ payload:
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
   - DOMAIN-SUFFIX,mcdn.bilivideo.com
   - DOMAIN-SUFFIX,tracker.biliapi.net
-  - DOMAIN-SUFFIX,chat.bilibili.com
+#  - DOMAIN-SUFFIX,chat.bilibili.com
   - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
   - DOMAIN-REGEX,(.*)-p2p-(.*)\.chat\.bilibili\.com
   - DOMAIN-REGEX,(.*)\.v(.*)d\.szbdyd\.com
