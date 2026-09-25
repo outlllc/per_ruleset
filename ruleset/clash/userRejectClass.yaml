@@ -76,6 +76,7 @@ payload:
 
   # 让人恶心的网站
   - DOMAIN-SUFFIX,sysin.org
+  - DOMAIN-KEYWORD,dongming
 
   # 反诈中心
   - DOMAIN-SUFFIX,gjfzpt.cn
