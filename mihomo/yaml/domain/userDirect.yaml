@@ -1,5 +1,5 @@
 payload:
-  #自定义直连或国内规则
+  # 自定义国内/免流规则（优先级高于广告规则，也可作误杀白名单）
   - '+.windowsupdate.com'
-  - '+.ghproxy.com'
+  - '+.delivery.mp.microsoft.com'
   - '+.dldir1.qq.com'

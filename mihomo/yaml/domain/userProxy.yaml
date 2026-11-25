@@ -1,6 +1,15 @@
 payload:
-  #自定义代理规则
+  # 自定义代理规则
+  # Google Play 下载修复（防止卡“等待中”）
   - '+.googleapis.cn'
   - '+.xn--ngstr-lra8j.com'
+  # Google .dev 顶级域
   - '+.dev'
-  - '+.nexon'
+  # Nexon 完整域名补全（修复原 +.nexon 无效）
+  - '+.nexon.com'
+  - '+.nexon.net'
+  - '+.nexon.io'
+  - '+.nexon.co.jp'
+  - '+.nexon.co.kr'
+  - '+.nexoncdn.co.kr'
+  - '+.nexonstatic.com'

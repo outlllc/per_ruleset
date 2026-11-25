@@ -1,10 +1,20 @@
 payload:
-  #自定义走机场规则
+  # 自定义走机场国内出口规则（规避百度代理风控/登录异常）
+  # 运营商及一键登录认证
   - '+.189.cn'
-  - '+.ccb.com'
-  - '+.10086.cn'
-  - '+.139.com'
-  - '+.taobao.com'
   - '+.chinatelecom.com.cn'
   - '+.chinatelecom.com'
+  - '+.id6.me'
+  - '+.10086.cn'
+  - '+.139.com'
+  - '+.chinamobile.com'
+  - '+.cmpassport.com'
+  # 银行
+  - '+.ccb.com'
+  - '+.ccb.cn'
+  - '+.ccb.com.cn'
+  # 电商（仅放主接口，图片 CDN 留给百度免流省机场流量）
+  - '+.taobao.com'
+  - '+.tmall.com'
+  # 其他
   - '+.zntx.cc'

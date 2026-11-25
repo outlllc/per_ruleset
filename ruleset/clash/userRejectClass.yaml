@@ -1,22 +1,14 @@
 payload:
-  # 自定义Reject规则
-  # > bilibili直连封堵
-  # - IP-CIDR,203.107.1.0/24,no-resolve
-  # > 防止回环
-  # - IP-CIDR,127.0.0.1/32,no-resolve
-  # - IP-CIDR,198.18.0.1/16,no-resolve
-  # - IP-CIDR,28.0.0.1/8,no-resolve
-  # - IP-CIDR6,::1/128,no-resolve
+  # ========== STUN / 私有 PCDN UDP 端口封堵 ==========
+  # 注：已移除全局 UDP 443，交由主配置 sub-rules 动态控制（百度免流拦截、Wi-Fi直连放行）
+  - AND,((NETWORK,UDP),(DST-PORT,3478/4483/9305))
+  - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
 
+  # ========== B站 / 抖音 / 虎牙 / 斗鱼 / 爱奇艺 / 优酷 / 网心云 PCDN 封堵 ==========
   - DOMAIN-SUFFIX,p6-dy-ipv6.byteimg.com
   - DOMAIN-SUFFIX,mcdn.bilivideo.cn
   - DOMAIN-SUFFIX,mcdn.bilivideo.com
   - DOMAIN-SUFFIX,tracker.biliapi.net
-#  - DOMAIN-SUFFIX,chat.bilibili.com
-  - DOMAIN-REGEX,stun(.*)\.chat\.bilibili\.com
-  - DOMAIN-REGEX,(.*)-p2p-(.*)\.chat\.bilibili\.com
-  - DOMAIN-REGEX,(.*)\.v(.*)d\.szbdyd\.com
-  - DOMAIN-REGEX,(.*)-live-tracker-(.*)\.chat\.bilibili\.com
   - DOMAIN-SUFFIX,szbdyd.com
   - DOMAIN-SUFFIX,metric.huya.com
   - DOMAIN-SUFFIX,ylog.huya.com
@@ -26,20 +18,6 @@ payload:
   - DOMAIN-SUFFIX,e-stat.huya.com
   - DOMAIN-SUFFIX,pp.io
   - DOMAIN-SUFFIX,ppio.cloud
-  # > STUN
-  - AND,((NETWORK,UDP),(DST-PORT,3478))
-  # - AND,((NETWORK,UDP),(OR,((DST-PORT,3478),(GEOIP,PRIVATE))))
-  # quic拦截
-  - AND,((NETWORK,UDP),(DST-PORT,443))
-  - AND,((NETWORK,UDP),(DST-PORT,4483))
-  - AND,((NETWORK,UDP),(DST-PORT,9305))
-  # - AND,((NETWORK,UDP),(DST-PORT,443/4483/9305))
-  # - OR,((AND,((DST-PORT,443),(NETWORK,udp),(GEOSITE,!cn))),(AND,((DST-PORT,443),(NETWORK,udp),(GEOIP,!cn))))
-  # - AND,(DST-PORT,443),(NETWORK,UDP),(GEOSITE,geolocation-!cn)
-  - AND,((NETWORK,UDP),(OR,((DOMAIN-KEYWORD,bili),(DOMAIN-KEYWORD,mcdn))))
-
-  # From SophiEZzz and anti-AD
-  - DOMAIN-SUFFIX,gjfzpt.cn
   - DOMAIN-SUFFIX,bsccdn.net
   - DOMAIN-SUFFIX,pkoplink.com
   - DOMAIN-SUFFIX,saxysec.com
@@ -49,38 +27,20 @@ payload:
   - DOMAIN-SUFFIX,onethingpcs.com
   - DOMAIN-SUFFIX,jomodns.cn
   - DOMAIN-SUFFIX,stun.douyucdn.cn
-  - DOMAIN-SUFFIX,stun.hitv.com
   - DOMAIN-SUFFIX,stun1.douyucdn.cn
+  - DOMAIN-SUFFIX,stun.hitv.com
   - DOMAIN-SUFFIX,tpa-hcdn.iqiyi.com
   - DOMAIN-SUFFIX,pcdn.xmcdn.com
   - DOMAIN-SUFFIX,pcdn.yximgs.com
-  - DOMAIN-SUFFIX,dyp2p-ali.douyucdn.cn
-  - DOMAIN-SUFFIX,dyp2p-hw.douyucdn.cn
-  - DOMAIN-SUFFIX,p2p-ali.douyucdn.cn
-  - DOMAIN-SUFFIX,p2p.qq.com
-  - DOMAIN-SUFFIX,p2pchunk-hw.douyucdn.cn
-  - DOMAIN-SUFFIX,p2pchunk-table.douyucdn.cn
-  - DOMAIN-SUFFIX,p2pchunk-ws.douyucdn.cn
-  - DOMAIN-SUFFIX,p2perrorlog.douyucdn.cn
-  - DOMAIN-SUFFIX,p2plive-ali.douyucdn.cn
-  - DOMAIN-SUFFIX,p2plive-ws.douyucdn.cn
-  - DOMAIN-SUFFIX,p2plog.douyucdn.cn
-  - DOMAIN-SUFFIX,p2ptun.qq.com
-  - DOMAIN-SUFFIX,p2pupdate.gamedl.qq.com
-  - DOMAIN-SUFFIX,p2pupgrade.gamedl.qq.com
-  - DOMAIN-SUFFIX,p2pvod-ws.douyucdn.cn
-  - DOMAIN-REGEX,.*pcdn.*biliapi\.net
-  - DOMAIN-REGEX,.*pcdn.*youku\.com
-  - DOMAIN-REGEX,.*p2p.*douyucdn\.cn
-  - DOMAIN-REGEX,.*p2p.*qq\.com
 
-  # 让人恶心的网站
+  # 高效锚定正则（合并原 7 条低效正则及 15 条重复子域）
+  - DOMAIN-REGEX,(?:^stun|-(?:p2p|live-tracker)-).*\.chat\.bilibili\.com$
+  - DOMAIN-REGEX,pcdn.*\.biliapi\.net$
+  - DOMAIN-REGEX,pcdn.*\.youku\.com$
+  - DOMAIN-REGEX,p2p.*\.douyucdn\.cn$
+  - DOMAIN-REGEX,p2p.*\.qq\.com$
+
+  # ========== 个人拉黑 & 反诈中心 ==========
   - DOMAIN-SUFFIX,sysin.org
   - DOMAIN-KEYWORD,dongming
-
-  # 反诈中心
   - DOMAIN-SUFFIX,gjfzpt.cn
-  - DOMAIN-SUFFIX,fzapp-test-tyy.gjfzpt.cn
-  - DOMAIN-SUFFIX,oss.gjfzpt.cn
-  - DOMAIN-SUFFIX,fzapp.gjfzpt.cn
-  - DOMAIN-SUFFIX,fzapph5.gjfzpt.cn

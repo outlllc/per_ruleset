@@ -1,10 +1,9 @@
 payload:
-  #抖音快手小红书修改定位
-  #抖音修改ip
+  # 抖音/快手/小红书修改 IP 属地（仅包含 API 接口，剔除视频流 CDN 避免偷跑大流量）
+  # 抖音
   - '+.amemv.com'
-  - '+.douyinvod.com'
-  # 快手修改IP
+  # 快手
   - '+.gifshow.com'
-  - '+.apissl.ksapisrv.com'
-  # 小红书修改IP
+  - '+.ksapisrv.com'
+  # 小红书
   - '+.edith.xiaohongshu.com'

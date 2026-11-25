@@ -1,38 +1,20 @@
-#!name = 拦截HTTPDNS
-#!desc = 拦截常见的HTTPDNS服务，以确保这些请求都能够在Loon的DNS框架下工作。
-#!openUrl = 
-#!author = 可莉🅥 VirgilClyne
-#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
-#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/HTTPDNS.png
-#!date = 2024-07-13 01:40:46
 payload:
-
   # YY语音
   - DOMAIN,yyapp-httpdns.gslb.yy.com
   - DOMAIN,union-httpdns.gslb.yy.com
   - DOMAIN,httpdns-v6.gslb.yy.com
-  
-  # 抖音
-  - AND,((DOMAIN-KEYWORD,api100-core-quic-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,api100-normal-quic-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,api100-normal-quic-aweme-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,api100-quic-core-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,api100-quic-normal-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,frontier-aweme-),(AND,((OR,((DOMAIN-KEYWORD,-ipa.),(DOMAIN-KEYWORD,-ipainner.),(DOMAIN-KEYWORD,-origin.),(DOMAIN-KEYWORD,-ipainner-))),(OR,((DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,amemv.com))))))
-  - AND,((DOMAIN-KEYWORD,frontier100-aweme),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((DOMAIN-KEYWORD,ma5-normal-),(DOMAIN-SUFFIX,zijieapi.com))
-  - AND,((DOMAIN-KEYWORD,polaris5-normal-),(DOMAIN-SUFFIX,zijieapi.com))
-  - AND,((DOMAIN-KEYWORD,webcast100-ws-c-),(DOMAIN-SUFFIX,amemv.com))
-  - AND,((OR,((DOMAIN-KEYWORD,tnc3-bjlgy),(DOMAIN-KEYWORD,tnc11-bjlgy))),(OR,((DOMAIN-SUFFIX,bytedance),(DOMAIN-SUFFIX,zijieapi.com))))
+
+  # 抖音（后缀前置短路合并 + 修复 DEST-PORT 与 bytedance.com）
   - DOMAIN,frontier-aweme-hl.snssdk.com
   - DOMAIN,frontier-aweme.snssdk.com
   - DOMAIN,frontier-quic-test.bytedance.com
-  - AND,((IP-CIDR,110.249.199.75/32,no-resolve),(DEST-PORT,6443))
-  - AND,((IP-CIDR,111.225.147.191/32,no-resolve),(DEST-PORT,6443))
-  - AND,((IP-CIDR,111.63.61.101/32,no-resolve),(DEST-PORT,6443))
-  - AND,((IP-CIDR,220.243.141.0/32,no-resolve),(DEST-PORT,6443))
-  
-  # 微信
+  - AND,((DOMAIN-SUFFIX,amemv.com),(OR,((DOMAIN-KEYWORD,api100-core-quic-),(DOMAIN-KEYWORD,api100-normal-quic-),(DOMAIN-KEYWORD,api100-quic-core-),(DOMAIN-KEYWORD,api100-quic-normal-),(DOMAIN-KEYWORD,frontier100-aweme),(DOMAIN-KEYWORD,webcast100-ws-c-))))
+  - AND,((OR,((DOMAIN-SUFFIX,snssdk.com),(DOMAIN-SUFFIX,amemv.com))),(DOMAIN-KEYWORD,frontier-aweme-),(OR,((DOMAIN-KEYWORD,-ipa.),(DOMAIN-KEYWORD,-ipainner.),(DOMAIN-KEYWORD,-origin.),(DOMAIN-KEYWORD,-ipainner-))))
+  - AND,((DOMAIN-SUFFIX,zijieapi.com),(OR,((DOMAIN-KEYWORD,ma5-normal-),(DOMAIN-KEYWORD,polaris5-normal-))))
+  - AND,((OR,((DOMAIN-SUFFIX,bytedance.com),(DOMAIN-SUFFIX,zijieapi.com))),(OR,((DOMAIN-KEYWORD,tnc3-bjlgy),(DOMAIN-KEYWORD,tnc11-bjlgy))))
+  - AND,((DST-PORT,6443),(OR,((IP-CIDR,110.249.199.75/32,no-resolve),(IP-CIDR,111.225.147.191/32,no-resolve),(IP-CIDR,111.63.61.101/32,no-resolve),(IP-CIDR,220.243.141.0/32,no-resolve))))
+
+  # 微信 & 企业微信
   - DOMAIN,dns.weixin.qq.com
   - DOMAIN,dns.weixin.qq.com.cn
   - DOMAIN,aedns.weixin.qq.com
@@ -70,6 +52,8 @@ payload:
   - IP-CIDR,123.151.48.208/32,no-resolve
   - IP-CIDR,123.151.54.50/32,no-resolve
   - IP-CIDR,180.153.202.85/32,no-resolve
+  - IP-CIDR,182.254.116.117/32,no-resolve
+  - IP-CIDR,182.254.118.119/32,no-resolve
   - IP-CIDR,183.192.196.31/32,no-resolve
   - IP-CIDR,203.205.129.102/32,no-resolve
   - IP-CIDR,203.205.234.132/32,no-resolve
@@ -79,90 +63,78 @@ payload:
   - IP-CIDR6,2402:4e00:1900:1700:0:9554:1ad9:c3a/128,no-resolve
   - IP-CIDR6,2408:8711:10:10::20/128,no-resolve
   - IP-CIDR6,2409:8702:4860:10::4d/128,no-resolve
-  
-  # QQ音乐
+
+  # QQ音乐 & 腾讯云 DNSPod
   - DOMAIN,httpdns.kg.qq.com
-  - DOMAIN-REGEX,^http:\/\/182\.256\.116\.116\/d
-  
-  # 哔哩哔哩
+  - IP-CIDR,119.29.29.98/32,no-resolve
+  - IP-CIDR,119.29.29.99/32,no-resolve
+  - IP-CIDR,182.254.116.116/32,no-resolve
+
+  # 哔哩哔哩（原16条无效 DOMAIN-REGEX 已修复为 IP-CIDR）
   - DOMAIN,httpdns.bilivideo.com
-  # KEY_EXT_P2P_HTTPDNS_BILI_IP
-  - DOMAIN-REGEX,^http:\/\/47\.101\.175\.206\/resolve
-  - DOMAIN-REGEX,^http:\/\/47\.100\.123\.169\/resolve
-  - DOMAIN-REGEX,^http:\/\/120\.46\.169\.234\/resolve
-  - DOMAIN-REGEX,^http:\/\/121\.36\.72\.124\/resolve
-  # KEY_EXT_P2P_BILIDNS_CMCC_IP
-  - DOMAIN-REGEX,^http:\/\/116\.63\.10\.135\/resolve
-  - DOMAIN-REGEX,^http:\/\/117\.185\.228\.108\/resolve
-  - DOMAIN-REGEX,^http:\/\/117\.144\.238\.29\/resolve
-  - DOMAIN-REGEX,^http:\/\/122\.9\.7\.134\/resolve
-  # KEY_EXT_P2P_BILIDNS_CT_IP
-  - DOMAIN-REGEX,^http:\/\/101\.91\.140\.124\/resolve
-  - DOMAIN-REGEX,^http:\/\/101\.91\.140\.224\/resolve
-  - DOMAIN-REGEX,^http:\/\/122\.9\.13\.79\/resolve
-  - DOMAIN-REGEX,^http:\/\/122\.9\.15\.129\/resolve
-  # KEY_EXT_P2P_BILIDNS_CU_IP
-  - DOMAIN-REGEX,^http:\/\/112\.65\.200\.117\/resolve
-  - DOMAIN-REGEX,^http:\/\/112\.64\.218\.119\/resolve
-  - DOMAIN-REGEX,^http:\/\/114\.116\.215\.110\/resolve
-  - DOMAIN-REGEX,^http:\/\/116\.63\.10\.31\/resolve
-  
-  # 阿里巴巴
+  - IP-CIDR,47.101.175.206/32,no-resolve
+  - IP-CIDR,47.100.123.169/32,no-resolve
+  - IP-CIDR,120.46.169.234/32,no-resolve
+  - IP-CIDR,121.36.72.124/32,no-resolve
+  - IP-CIDR,116.63.10.135/32,no-resolve
+  - IP-CIDR,117.185.228.108/32,no-resolve
+  - IP-CIDR,117.144.238.29/32,no-resolve
+  - IP-CIDR,122.9.7.134/32,no-resolve
+  - IP-CIDR,101.91.140.124/32,no-resolve
+  - IP-CIDR,101.91.140.224/32,no-resolve
+  - IP-CIDR,122.9.13.79/32,no-resolve
+  - IP-CIDR,122.9.15.129/32,no-resolve
+  - IP-CIDR,112.65.200.117/32,no-resolve
+  - IP-CIDR,112.64.218.119/32,no-resolve
+  - IP-CIDR,114.116.215.110/32,no-resolve
+  - IP-CIDR,116.63.10.31/32,no-resolve
+
+  # 阿里巴巴 & 阿里云
   - DOMAIN,httpdns.alicdn.com
-  
-  # 阿里云
   - DOMAIN,httpdns-api.aliyuncs.com
   - DOMAIN,httpdns-sc.aliyuncs.com
   - IP-CIDR,203.107.1.0/24,no-resolve
-  
-  # 百度
+
+  # 百度 & 百度智能云（修复 186 -> 180 笔误 + 修复无效 DOMAIN-REGEX）
   - DOMAIN,httpdns.baidu.com
   - DOMAIN,httpsdns.baidu.com
-  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/
-  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.112\/v\d\/resolve
-  - DOMAIN-REGEX,^http:\/\/180\.76\.76\.220\/v\d\/resolve
-  
-  # 百度智能云
   - DOMAIN,httpdns.baidubce.com
-  - IP-CIDR,186.76.76.200/32,no-resolve
-  
+  - IP-CIDR,180.76.76.112/32,no-resolve
+  - IP-CIDR,180.76.76.200/32,no-resolve
+  - IP-CIDR,180.76.76.220/32,no-resolve
+
   # 华为
   - DOMAIN,httpdns.c.cdnhwc2.com
-  
-  # 京东
+
+  # 京东 & 京东云
   - DOMAIN,dns.jd.com
   - IP-CIDR,101.124.19.122/32,no-resolve
-  - IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
-  
-  # 京东云
   - IP-CIDR,103.224.222.208/32,no-resolve
-  
-  # 腾讯云
-  - IP-CIDR,119.29.29.98/32,no-resolve
-  - IP-CIDR,119.29.29.99/32,no-resolve
-  - DOMAIN-REGEX,^http:\/\/182\.254\.116\.116\/d
-  
+  - IP-CIDR6,2402:db40:5100:1011::5/128,no-resolve
+
   # 字节跳动
   - DOMAIN,httpdns.volcengineapi.com
   - DOMAIN,dig.bdurl.net
   - DOMAIN,dig.zjurl.cn
-  
+
   # OPPO
   - DOMAIN,httpdns.push.oppomobile.com
-  
+
   # 快手
   - DOMAIN,kuaishou.httpdns.pro
-  
+
   # 美团
   - DOMAIN,httpdns.meituan.com
-  - DOMAIN-REGEX,^http:\/\/103\.37\.155\.60\/fetch
-  
+  - IP-CIDR,103.37.155.60/32,no-resolve
+  - IP-CIDR,202.90.108.13/32,no-resolve
+  - IP-CIDR,202.90.110.46/32,no-resolve
+
   # 拼多多
-  - DOMAIN-REGEX,^http:\/\/101\.35\.204\.35\/d
-  - DOMAIN-REGEX,^http:\/\/101\.35\.212\.35\/d
-  - DOMAIN-REGEX,^http:\/\/114\.110\.96\.26\/d
-  - DOMAIN-REGEX,^http:\/\/114\.110\.97\.97\/d
-  
+  - IP-CIDR,101.35.204.35/32,no-resolve
+  - IP-CIDR,101.35.212.35/32,no-resolve
+  - IP-CIDR,114.110.96.26/32,no-resolve
+  - IP-CIDR,114.110.97.97/32,no-resolve
+
   # 网易
   - DOMAIN,httpdns.music.163.com
   - DOMAIN,httpdns.n.netease.com
@@ -173,15 +145,13 @@ payload:
   - IP-CIDR,59.111.239.62/32,no-resolve
   - IP-CIDR,115.236.121.51/32,no-resolve
   - IP-CIDR,115.236.121.195/32,no-resolve
-  
+
   # 微博
   - DOMAIN,dns.weibo.cn
   - IP-CIDR,39.97.130.51/32,no-resolve
   - IP-CIDR,39.97.128.148/32,no-resolve
-  - DOMAIN-REGEX,^http:\/\/api\.weibo\.cn\/2\/httpdns\/config
-  - DOMAIN-REGEX,^http:\/\/api\.weibo\.cn\/httpdns\/config
-  
-  # 知乎
-  - DOMAIN-REGEX,^http:\/\/103\.41\.167\.237\/v2\/resolv
-  - IP-CIDR,118.89.204.198/23,no-resolve
+
+  # 知乎（修复 /23 误杀为 /32 + 修复 103.41.167.237）
+  - IP-CIDR,103.41.167.237/32,no-resolve
+  - IP-CIDR,118.89.204.198/32,no-resolve
   - IP-CIDR6,2402:4e00:1200:ed00:0:9089:6dac:96b6/128,no-resolve
