@@ -2,80 +2,86 @@ name: mihomo_convert_to_mrs
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'mihomo/**'
 
 permissions:
   contents: write
 
 jobs:
-    generatesrs:
-        runs-on: ubuntu-latest
-        steps:
-        - uses: actions/checkout@v4
-        - name: setup mihomo
-          env:
-            MIHOMO_DEB_URL: "https://github.com/MetaCubeX/mihomo/releases/download/Prerelease-Alpha/mihomo-linux-amd64-alpha-e183c58.deb"
-          run: |
-            wget -O mihomo.deb $MIHOMO_DEB_URL
-            sudo dpkg -i mihomo.deb
+  generatesrs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        - name: convet text domain to mihomo mrs
-          run: |
-            if [ ! -d "ruleset/clash/mrs" ]; then
-              mkdir -p ruleset/clash/mrs
-            fi
-            for file in mihomo/text/domain/*.txt; do
-              filename=$(basename "$file" .txt)
-              output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换txt domain文件: $file"
-              mihomo convert-ruleset domain text "$file" "$output"
+      - name: Setup Mihomo (latest stable)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          MIHOMO_URL=$(curl -fsSL \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            https://api.github.com/repos/MetaCubeX/mihomo/releases/latest \
+            | jq -r '[.assets[] | select(.name | test("^mihomo-linux-amd64-(compatible-|v[12]-)?v[0-9].*\\.gz$")) | .browser_download_url][0]')
+
+          echo "Downloading: ${MIHOMO_URL}"
+          test -n "${MIHOMO_URL}" && test "${MIHOMO_URL}" != "null"
+
+          curl -fsSL --retry 3 "${MIHOMO_URL}" -o /tmp/mihomo.gz
+          gunzip -f /tmp/mihomo.gz
+          sudo install -m 755 /tmp/mihomo /usr/local/bin/mihomo
+          rm -f /tmp/mihomo
+          mihomo -v
+
+      - name: Convert rulesets to Mihomo mrs
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          mkdir -p ruleset/clash/mrs
+
+          convert_dir() {
+            local dir="$1"
+            local behavior="$2"
+            local ext="$3"
+            local default_fmt="$4"
+
+            [ -d "$dir" ] || return 0
+            for file in "$dir"/*."$ext"; do
+              local filename output fmt
+              filename=$(basename "$file" ".$ext")
+              output="ruleset/clash/mrs/${filename}.mrs"
+
+              # 自动识别：若 .txt 内部写了 payload: YAML 格式，自动按 yaml 转换防报错
+              if [ "$default_fmt" = "text" ] && grep -qE '^[[:space:]]*payload:' "$file"; then
+                fmt="yaml"
+                echo "转换 (${behavior}/${fmt}, 自动识别YAML): $file -> $output"
+              else
+                fmt="$default_fmt"
+                echo "转换 (${behavior}/${fmt}): $file -> $output"
+              fi
+
+              mihomo convert-ruleset "$behavior" "$fmt" "$file" "$output"
             done
+          }
 
-        - name: convet text ipcidir to mihomo mrs
-          run: |
-            if [ ! -d "ruleset/clash/mrs" ]; then
-              mkdir -p ruleset/clash/mrs
-            fi
-            for file in mihomo/text/ipcidir/*.txt; do
-              filename=$(basename "$file" .txt)
-              output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换txt ipcidir: $file"
-              mihomo convert-ruleset ipcidir text "$file" "$output"
-            done
+          convert_dir "mihomo/text/domain"   "domain" "txt"  "text"
+          convert_dir "mihomo/text/ipcidr"   "ipcidr" "txt"  "text"
+          convert_dir "mihomo/text/ipcidir"  "ipcidr" "txt"  "text"
+          convert_dir "mihomo/yaml/domain"   "domain" "yaml" "yaml"
+          convert_dir "mihomo/yaml/domain"   "domain" "yml"  "yaml"
+          convert_dir "mihomo/yaml/ipcidr"   "ipcidr" "yaml" "yaml"
+          convert_dir "mihomo/yaml/ipcidr"   "ipcidr" "yml"  "yaml"
 
-        - name: convet yaml domain to mihomo mrs
-          run: |
-            if [ ! -d "ruleset/clash/mrs" ]; then
-              mkdir -p ruleset/clash/mrs
-            fi
-            for file in mihomo/yaml/domain/*.yaml; do
-              filename=$(basename "$file" .yaml)
-              output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换文件yaml domain: $file"
-              mihomo convert-ruleset domain yaml "$file" "$output"
-            done
-
-        - name: convet yaml ipcidir to mihomo mrs
-          run: |
-            if [ ! -d "ruleset/clash/mrs" ]; then
-              mkdir -p ruleset/clash/mrs
-            fi
-            for file in mihomo/yaml/ipcidr/*.yaml; do
-              filename=$(basename "$file" .yaml)
-              output="ruleset/clash/mrs/$filename.mrs"
-              echo "转换文件yaml ipcidir: $file"
-              mihomo convert-ruleset ipcidr yaml "$file" "$output"
-            done
-
-        - name: Commit and push *.mrs
-          run: |
-            git config --global user.email "action@github.com"
-            git config --global user.name "GitHub Action"
-            git add ruleset/clash/mrs
-            if git diff --staged --quiet; then
-              echo "No changes to commit"
-              exit 0
-            else
-              git commit -m "Generate mrs files"
-              echo "commit message: Generate mrs files"
-              git push
-            fi
+      - name: Commit and push *.mrs
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add ruleset/clash/mrs
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Generate mrs files"
+            git push
+          fi
